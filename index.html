@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- E. R. A. Hiller - erah.html
-     Ingenieur · Künstler · Essayist
-     Version 35
+     Ingenieurbau · Kunst · Essays
+     Version 36
      E. R. A. Hiller, 06.2026
      Alle Rechte vorbehalten. - All rights reserved. -->
 <html lang="de">
@@ -504,6 +504,24 @@
     }
     .impressum-inner a:hover { color: var(--accent); }
 
+
+    @media (max-width: 480px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.8rem;
+      }
+
+      .portrait-wrap {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+      }
+
+      .header-text {
+        margin-left: 0 !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -514,7 +532,7 @@
       <div>
         <div class="header-text" style="margin-left:30px;">
           <div class="name">E<span style="margin-left:-0.024em">.</span><span style="padding-left:0.096em">R</span><span style="margin-left:-0.024em">.</span><span style="padding-left:0.02em">A</span><span style="margin-left:-0.024em">.</span><span style="padding-left:0.108em"><span style="letter-spacing:0.144em">Hiller</span></span></div>
-          <div class="cv-line" id="t-cv" style="margin-top:-8px;">Ingenieur &middot; Künstler &middot; Essayist</div>
+          <div class="cv-line" id="t-cv" style="margin-top:-8px;">Ingenieurbau &middot; Kunst &middot; Essays</div>
         </div>
       </div>
     </div>
@@ -737,7 +755,7 @@
       /* ── Language toggle ── */
       var translations = {
         de: {
-          cv: 'Ingenieur &middot; Künstler &middot; Essayist',
+          cv: 'Ingenieurbau &middot; Kunst &middot; Essays',
           intro: 'Manche Fragen dulden keine feste Form. Sie treiben durch Sprache, durch Bild, durch den Algorithmus \u2014 nicht weil das Mittel gleichg\u00fcltig w\u00e4re, sondern weil kein einzelnes Mittel ausreicht. Eine Suche an Resonanz.',
           projects: 'Projekte',
           footer: 'Schreibt auf Deutsch \u2014 nicht aus Gewohnheit, sondern weil Pr\u00e4zision eine Sprache braucht, die man wirklich bewohnt.',
@@ -756,7 +774,7 @@
           'title-lit': 'Asymmetrie des Begehrens'
         },
         en: {
-          cv: 'Engineer &middot; Artist &middot; Essayist',
+          cv: 'Engineering &middot; Art &middot; Essays',
           intro: 'Some questions resist a fixed form. They move through language, image, algorithm \u2014 not because the medium is irrelevant, but because no single medium suffices. A search guided by resonance.',
           projects: 'Projects',
           footer: 'Writes in German — not by habit, but because precision requires a language one truly inhabits.',
