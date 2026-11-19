@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!-- E. R. A. Hiller - erah.html
      Text · Bild · System
-     Version 41
-     E. R. A. Hiller, 06.2026
+     Version 41b
+     E. R. A. Hiller, 11.2026
      Alle Rechte vorbehalten. - All rights reserved. -->
 <html lang="de">
 <head>
@@ -449,6 +449,19 @@
 
 
     /* ── Impressum ── */
+    .imp-sep { font-family: Georgia, 'Times New Roman', serif; font-size: 0.75rem; color: rgba(210,185,120,0.5); margin: 0 0.7em; }
+    .ds-overlay { display: none; position: fixed; inset: 0; background: #000; z-index: 1000; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .ds-overlay.active { display: block; }
+    .ds-inner { max-width: 640px; margin: 0 auto; padding: 4.5rem clamp(1.5rem, 5vw, 2rem) 4rem; }
+    .ds-inner h2 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.1rem; font-weight: 400; color: var(--accent); letter-spacing: 0.06em; margin: 0 0 1.6rem; }
+    .ds-inner h3 { font-family: system-ui, -apple-system, sans-serif; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin: 1.8rem 0 0.5rem; }
+    .ds-inner p { font-family: Georgia, 'Times New Roman', serif; font-size: 0.95rem; line-height: 1.75; color: var(--text); margin: 0 0 0.8rem; hyphens: auto; -webkit-hyphens: auto; }
+    .ds-inner a { color: var(--muted); text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+    .ds-inner a:hover { color: var(--accent); }
+    .ds-en { display: none; }
+    html[lang="en"] .ds-de { display: none; }
+    html[lang="en"] .ds-en { display: block; }
+
     .impressum-trigger {
       font-family: Georgia, 'Times New Roman', serif;
       font-size: 0.75rem;
@@ -644,8 +657,8 @@
 
 <hr class="project-divider" style="margin-bottom:calc(var(--gap)/4);">
 
-  <footer style="text-align:left;">
-  <button class="impressum-trigger" id="t-impressum-btn" onclick="document.getElementById('impressum-overlay').classList.add('active')">Impressum</button>
+  <footer style="text-align:center;">
+  <button class="impressum-trigger" id="t-impressum-btn" style="display:inline-block;margin:2rem 0 0;" onclick="document.getElementById('impressum-overlay').classList.add('active')">Impressum</button><span class="imp-sep">&middot;</span><button class="impressum-trigger" id="t-ds-btn" style="display:inline-block;margin:2rem 0 0;" onclick="document.getElementById('ds-overlay').classList.add('active')">Datenschutz</button>
   </footer>
 
 
@@ -773,7 +786,7 @@
       });
 
       /* ── Overlay: close on outside click ── */
-      ['essay-overlay','adb-overlay','impressum-overlay','max-overlay','anschreiben-overlay'].forEach(function(id) {
+      ['essay-overlay','adb-overlay','impressum-overlay','max-overlay','anschreiben-overlay','ds-overlay'].forEach(function(id) {
         var el = document.getElementById(id);
         if (el) {
           el.addEventListener('click', function(e) {
@@ -785,7 +798,7 @@
       /* ── Overlay: close on Escape ── */
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-          ['essay-overlay','adb-overlay','impressum-overlay','max-overlay','anschreiben-overlay'].forEach(function(id) {
+          ['essay-overlay','adb-overlay','impressum-overlay','max-overlay','anschreiben-overlay','ds-overlay'].forEach(function(id) {
             var el = document.getElementById(id);
             if (el) el.classList.remove('active');
           });
@@ -985,6 +998,10 @@
         if (timtitle) timtitle.textContent = lang === 'en' ? 'Legal Notice' : 'Impressum';
         if (timcountry) timcountry.textContent = lang === 'en' ? 'Germany' : 'Deutschland';
         var timrights = document.getElementById('t-imp-rights');
+        var tdsb = document.getElementById('t-ds-btn'); if (tdsb) tdsb.textContent = lang === 'en' ? 'Privacy' : 'Datenschutz';
+        var tmstv = document.getElementById('t-imp-mstv'); if (tmstv) tmstv.textContent = lang === 'en' ? 'Responsible for content pursuant to § 18(2) MStV: Dr.-Ing. Eugen Hiller, address as above.' : 'Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV: Dr.-Ing. Eugen Hiller, Anschrift wie oben.';
+        var tids = document.getElementById('t-imp-ds'); if (tids) tids.textContent = lang === 'en' ? 'Privacy Policy' : 'Datenschutzerklärung';
+        var tcds = document.getElementById('t-close-ds'); if (tcds) tcds.textContent = lang === 'en' ? 'Close' : 'Schließen';
         if (timrights) timrights.innerHTML = lang === 'en'
           ? '&copy; 2026 E. R. A. Hiller — All rights reserved'
           : '&copy; 2026 E. R. A. Hiller — Alle Rechte vorbehalten';
@@ -1077,9 +1094,51 @@
         <a href="mailto:erahiller@gmail.com">erahiller@gmail.com</a><br>
         <a href="https://instagram.com/e.r.a.hiller" target="_blank" rel="noopener">@e.r.a.hiller</a>
       </p>
+      <p style="margin-top:1.2rem;font-size:0.85rem;color:var(--muted);" id="t-imp-mstv">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV: Dr.-Ing. Eugen Hiller, Anschrift wie oben.</p>
+      <p style="margin-top:1.2rem;font-size:0.85rem;"><a href="#" id="t-imp-ds" onclick="event.preventDefault();document.getElementById('impressum-overlay').classList.remove('active');document.getElementById('ds-overlay').classList.add('active');">Datenschutzerklärung</a></p>
       <p style="margin-top:1.2rem;font-size:0.85rem;color:var(--muted);" id="t-imp-rights">
         &copy; 2026 E. R. A. Hiller &mdash; Alle Rechte vorbehalten
       </p>
+    </div>
+  </div>
+
+  <div class="ds-overlay" id="ds-overlay" role="dialog" aria-modal="true">
+    <button class="lightbox-close" onclick="document.getElementById('ds-overlay').classList.remove('active')"><span id="t-close-ds">Schließen</span> &#x2715;</button>
+    <div class="ds-inner">
+      <div class="ds-de" lang="de">
+        <h2>Datenschutzerklärung</h2>
+        <h3>Verantwortlich</h3>
+        <p>Dr.-Ing. Eugen Hiller<br>Lindenberg 60A &middot; 82343 P&ouml;cking &middot; Deutschland<br><a href="mailto:erahiller@gmail.com">erahiller@gmail.com</a></p>
+        <h3>Hosting</h3>
+        <p>Diese Website wird über GitHub Pages bereitgestellt, einen Dienst der GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Beim Aufruf der Seite verarbeitet GitHub technisch notwendige Zugriffsdaten, insbesondere IP-Adresse, Datum und Uhrzeit, aufgerufene Datei sowie Angaben zu Browser und Betriebssystem, um die Seite auszuliefern und den Betrieb abzusichern. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; das berechtigte Interesse liegt in einer sicheren und zuverlässigen Bereitstellung der Website.</p>
+        <p>Dabei können Daten in die USA übermittelt werden. GitHub stützt solche Übermittlungen auf das EU-U.S. Data Privacy Framework und auf Standardvertragsklauseln. Näheres im <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Statement</a>.</p>
+        <h3>Keine Cookies, kein Tracking</h3>
+        <p>Diese Website setzt keine Cookies, verwendet keine Analyse- oder Tracking-Werkzeuge und speichert keine Informationen auf Ihrem Gerät. Schriften und Bilder sind in die Seite eingebettet; es werden keine Inhalte von fremden Servern nachgeladen.</p>
+        <h3>Kontakt per E-Mail</h3>
+        <p>Wenn Sie mir eine E-Mail schreiben, verarbeite ich Ihre Angaben ausschließlich, um Ihre Nachricht zu beantworten (Art. 6 Abs. 1 lit. f DSGVO), und lösche sie, sobald sie dafür nicht mehr benötigt werden und keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Für E-Mails nutze ich den Dienst Gmail der Google Ireland Limited.</p>
+        <h3>Externe Links</h3>
+        <p>Die Seite enthält Links zu Instagram und Async Museum. Erst wenn Sie einen solchen Link anklicken, werden Daten an den jeweiligen Anbieter übertragen; dafür gelten dessen Datenschutzbestimmungen.</p>
+        <h3>Ihre Rechte</h3>
+        <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung, auf Datenübertragbarkeit sowie das Recht, der Verarbeitung zu widersprechen (Art. 15–21 DSGVO). Eine formlose Nachricht an die oben genannte E-Mail-Adresse genügt. Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, etwa beim Bayerischen Landesamt für Datenschutzaufsicht, Promenade 18, 91522 Ansbach.</p>
+        <p style="color:var(--muted);font-size:0.85rem;margin-top:1.6rem;">Stand: November 2026</p>
+      </div>
+      <div class="ds-en" lang="en">
+        <h2>Privacy Policy</h2>
+        <h3>Controller</h3>
+        <p>Dr.-Ing. Eugen Hiller<br>Lindenberg 60A &middot; 82343 P&ouml;cking &middot; Germany<br><a href="mailto:erahiller@gmail.com">erahiller@gmail.com</a></p>
+        <h3>Hosting</h3>
+        <p>This website is provided via GitHub Pages, a service of GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. When the page is accessed, GitHub processes technically necessary access data, in particular IP address, date and time, the requested file and information about browser and operating system, in order to deliver the page and keep it secure. The legal basis is Art. 6(1)(f) GDPR; the legitimate interest lies in providing the website securely and reliably.</p>
+        <p>Data may be transferred to the USA in the process. GitHub bases such transfers on the EU-U.S. Data Privacy Framework and on Standard Contractual Clauses. Details in the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Statement</a>.</p>
+        <h3>No cookies, no tracking</h3>
+        <p>This website sets no cookies, uses no analytics or tracking tools and stores no information on your device. Fonts and images are embedded in the page; no content is loaded from third-party servers.</p>
+        <h3>Contact by email</h3>
+        <p>If you send me an email, I process your details solely to reply to your message (Art. 6(1)(f) GDPR) and delete them once they are no longer needed for that purpose, unless statutory retention obligations apply. For email I use the Gmail service of Google Ireland Limited.</p>
+        <h3>External links</h3>
+        <p>The page contains links to Instagram and Async Museum. Data is transferred to the respective provider only when you click such a link; that provider's privacy policy then applies.</p>
+        <h3>Your rights</h3>
+        <p>You have the right of access, rectification, erasure and restriction of processing, the right to data portability and the right to object to processing (Art. 15–21 GDPR). An informal message to the email address above is sufficient. You may also lodge a complaint with a data protection supervisory authority, for example the Bavarian Data Protection Authority (Bayerisches Landesamt für Datenschutzaufsicht), Promenade 18, 91522 Ansbach, Germany.</p>
+        <p style="color:var(--muted);font-size:0.85rem;margin-top:1.6rem;">As of November 2026</p>
+      </div>
     </div>
   </div>
 </body>
