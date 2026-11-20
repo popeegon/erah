@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- E. R. A. Hiller - erah.html
      Text · Bild · System
-     Version 41c
+     Version 41d
      E. R. A. Hiller, 11.2026
      Alle Rechte vorbehalten. - All rights reserved. -->
 <html lang="de">
@@ -1149,12 +1149,21 @@
   </div>
 
 <script>
-/* Direktaufruf: erahiller.de/#impressum bzw. #datenschutz öffnet das jeweilige Overlay */
+/* Direktaufruf: erahiller.de/#impressum bzw. #datenschutz öffnet das jeweilige Overlay (deutsch);
+   #impressum-en bzw. #datenschutz-en öffnet es auf Englisch */
 (function () {
   function openFromHash() {
-    var map = { '#impressum': 'impressum-overlay', '#datenschutz': 'ds-overlay' };
-    var id = map[(location.hash || '').toLowerCase()];
-    if (id) { var el = document.getElementById(id); if (el) el.classList.add('active'); }
+    var map = {
+      '#impressum':     { id: 'impressum-overlay', lang: 'de' },
+      '#datenschutz':   { id: 'ds-overlay',        lang: 'de' },
+      '#impressum-en':  { id: 'impressum-overlay', lang: 'en' },
+      '#datenschutz-en':{ id: 'ds-overlay',        lang: 'en' }
+    };
+    var m = map[(location.hash || '').toLowerCase()];
+    if (m) {
+      if (window.setLang) window.setLang(m.lang);
+      var el = document.getElementById(m.id); if (el) el.classList.add('active');
+    }
   }
   window.addEventListener('hashchange', openFromHash);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', openFromHash); else openFromHash();
